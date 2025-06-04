@@ -20,8 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.List;
-
-// GameActivity больше не реализует SettingsDialogListener, так как DialogFragment убран
 public class GameActivity extends AppCompatActivity {
 
     private TextView storyTextView;
@@ -50,8 +48,6 @@ public class GameActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
         isMusicPlaying = sharedPreferences.getBoolean(MainActivity.KEY_MUSIC_STATE, false);
-
-        // Get the static MediaPlayer instance from MainActivity
         try {
             java.lang.reflect.Field field = MainActivity.class.getDeclaredField("mediaPlayer");
             field.setAccessible(true);
@@ -96,7 +92,6 @@ public class GameActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    // Изменен метод showSettingsDialog для использования AlertDialog
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -111,15 +106,13 @@ public class GameActivity extends AppCompatActivity {
         Button continueGameButton = dialogView.findViewById(R.id.continueGameButton);
         Button exitToMainMenuButton = dialogView.findViewById(R.id.exitToMainMenuButton);
 
-        // Устанавливаем слушатели
         saveGameButton.setOnClickListener(v -> {
-            onSaveGame(); // Вызываем внутренний метод сохранения
+            onSaveGame(); 
             dialog.dismiss();
         });
 
         musicToggleButton.setOnClickListener(v -> {
-            onToggleMusic(); // Вызываем внутренний метод переключения музыки
-            // Обновляем текст кнопки на диалоге, если это необходимо
+            onToggleMusic(); 
             if (isMusicPlaying) {
                 musicToggleButton.setText("Музыка: ВЫКЛ");
             } else {
@@ -247,6 +240,6 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent(GameActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Очистить стек активити
         startActivity(intent);
-        finish(); // Закрыть GameActivity
+        finish(); 
     }
 }

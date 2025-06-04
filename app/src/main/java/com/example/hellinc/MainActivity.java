@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         musicToggleButton.setOnClickListener(v -> toggleMusic());
 
-        exitButton.setOnClickListener(v -> finishAffinity()); // Закрывает все активити и выходит из приложения
+        exitButton.setOnClickListener(v -> finishAffinity()); 
     }
 
     private void checkContinueButtonVisibility() {
@@ -119,11 +119,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Don't release media player here as it's static and might be used by GameActivity
-        // Release it when the application is truly shutting down or on a specific event
     }
-
-    // Call this method when the app is completely done with the media player
     public static void releaseMediaPlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.release();
